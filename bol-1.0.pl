@@ -37,21 +37,25 @@ binmode(STDOUT, ":utf8");
 # Hardcoded variables
 #
 # result output directory
-my $results_dir = '/home/karopge/bgp-outages/results/';
+my $results_dir = '/results';
 
+#TODO: doesn't seem right, subject to change
 # interval length for which we count number of outages
 my $T=5;
 
+# time over which a prefix withdrawal is considered an outage, in minutes
+my $outMin = 5;
+
 # time over which a prefix withdrawal is considered an outage, in seconds
-my $outT=0;
+my $outT = 60*outMin;
 
 # dates
 my $start_d='1';
-my $start_m='1';
-my $start_y='2014';
-my $end_d='30';
-my $end_m='6';
-my $end_y='2014';
+my $start_m='2';
+my $start_y='2022';
+my $end_d='31';
+my $end_m='3';
+my $end_y='2022';
 
 # times
 my $d1 = DateTime->new( 
@@ -65,15 +69,17 @@ my $d2 = DateTime->new(
 	day => $end_d,  
 	month => $end_m, 
 	year => $end_y, 
-	hour => 23,#23,
-    minute => 59,#59,
-    second => 59);#59);
+	hour => 23,
+    minute => 59,
+    second => 59);
 
 my $interval_start_static = $d1->clone;
 my $interval_end_static = $d2->clone;
 
 # input directory
-my $filedir='/home/karopge/bgp-outages/bgp_data/cur/';
+my $filedir='/updates_preprocessed';
+
+#TODO: (why) are vantagepoint and route collector variables needed? -> subject to removal
 
 # as number of peer
 my $vantagepoint = '9304';
@@ -98,7 +104,7 @@ my $mon_ip;
 
 # GeoIP2
 my $geo_reader = GeoIP2::Database::Reader->new(
-    file    => '/home/karopge/bgp-outages/scripts/GeoLite2-City-16-4-2014.mmdb',
+    file    => '/GeoLite2-City_20240119/GeoLite2-City.mmdb',
     locales => [ 'en', ]
 );
 

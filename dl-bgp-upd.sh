@@ -12,20 +12,20 @@
 # monthe=end month of the range
 #
 
-yearb=2004
-yeare=2004
+yearb=2022
+yeare=2022
 monthb=2
-monthe=12
+monthe=3
 #
 # Check if it is normal or test execution
 #
-if [ "$1" == "test" ]
-then
-	yearb=2003
-	yeare=2003
-	monthb=8
-	monthe=8
-fi
+#if [ "$1" == "test" ]
+#then
+#	yearb=2003
+#	yeare=2003
+#	monthb=8
+#	monthe=8
+#fi
 
 
 for year in $(seq $yearb $yeare) 
@@ -76,7 +76,8 @@ do
 		#
 		# Download the updates files from filelist, ignore already downloaded files
 		#
-		wget -B http://archive.routeviews.org/bgpdata/$ymdot/UPDATES/ --limit-rate=50k -w 10 --random-wait -N -P updates.$ym -i indexfiles/filelist.updates.$ymdot
+		#wget -B http://archive.routeviews.org/bgpdata/$ymdot/UPDATES/ --limit-rate=50m -w 5 --random-wait -N -P updates.$ym -i indexfiles/filelist.updates.$ymdot
+		wget -B http://archive.routeviews.org/bgpdata/$ymdot/UPDATES/ -N -P updates.$ym -i indexfiles/filelist.updates.$ymdot
 
 	done
 done
